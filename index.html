@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THXY | Official Links</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #3a3a3a;
+            --hover-color: #ffffff;
+            --hover-text: #000000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .profile-container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .profile-img {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-card {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            padding: 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .link-card:hover {
+            background-color: var(--hover-color);
+            color: var(--hover-text);
+            border-color: var(--hover-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Reemplaza con tu imagen -->
+        <img class="profile-img" src="tu-foto-de-perfil.jpg" alt="Artist Logo">
+        
+        <h1>THXY</h1>
+        <p>Music Producer & Artist</p>
+
+        <div class="links-container">
+            <a href="https://open.spotify.com/intl-es/artist/2mS7mVS07ihJUNUXYKNVpA?si=akiu3yMmQ725lwM90_g7IQ" class="link-card" target="_blank">Spotify</a>
+            <a href="https://music.apple.com/us/artist/thxy/1787383099" class="link-card" target="_blank">Apple Music</a>
+            <a href="https://www.youtube.com/@Thxy.22" class="link-card" target="_blank">YouTube</a>
+            <a href="https://www.instagram.com/thxy.official.mx/" class="link-card" target="_blank">Instagram</a>
+            <a href="https://www.tiktok.com/@thxy.rar" class="link-card" target="_blank">TikTok</a>
+        </div>
+    </div>
+
+</body>
+</html>
