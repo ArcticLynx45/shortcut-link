@@ -4,113 +4,284 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THXY | Official Links</title>
+    <!-- Tailwind CSS for rapid modern layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons for Spotify, Apple Music, YouTube, Instagram, TikTok -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        :root {
-            --bg-color: transparent;
-            --text-color: #ffffff;
-            --accent-color: rgba(255, 255, 255, 0.1);
-            --hover-color: rgba(255, 255, 255, 0.1);
-            --hover-text: #ffffff;
-            --button-text-color: #ffffff;
-            --button-bg-color: rgba(255, 255, 255, 0.05);
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url("portada22.jpg");
+        /* Full Background Image setup with visual overlay fallback */
+        .bg-custom {
+            background-color: #0b0f19;
+            background-image: linear-gradient(to bottom, rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.92)), url("portada22.jpg");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
-        .profile-container {
-            text-align: center;
-            max-width: 400px;
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-button:active {
+            transform: translateY(0);
+        }
+
+        /* Pulse glow animation for profile picture ring */
+        @keyframes subtle-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.35); }
+        }
+
+        .profile-glow {
+            animation: subtle-glow 4s infinite ease-in-out;
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
-            margin-bottom: 16px;
-            filter: none !important;
-            -webkit-filter: none !important;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 32px;
-        }
-
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .link-card {
-            background: var(--button-bg-color);
-            border: 1px solid var(--accent-color);
-            color: var(--button-text-color);
-            padding: 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .link-card:hover {
-            background-color: var(--hover-color);
-            color: var(--hover-text);
-            border-color: rgba(255, 255, 255, 0.2);
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
     </style>
 </head>
-<body>
+<body class="bg-custom text-white min-h-screen flex flex-col justify-between items-center p-4 relative overflow-x-hidden">
 
-    <div class="profile-container">
-        <img class="profile-img" src="edit-this-chibi-character-make-skin-tone-slightly.jpg" alt="Artist Logo">
+    <!-- Interactive Ambient Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-md mx-auto my-auto z-10 py-8">
         
-        <h1>THXY</h1>
-        <p>Artist & Music producer</p>
+        <!-- Main Glass Card Container -->
+        <div class="glass-card rounded-3xl p-6 sm:p-8 text-center flex flex-col items-center">
+            
+            <!-- Profile Image Container -->
+            <div class="relative mb-5 group">
+                <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-white/20 profile-glow relative z-10 bg-neutral-900">
+                    <img 
+                        src="edit-this-chibi-character-make-skin-tone-slightly.jpg" 
+                        alt="THXY" 
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        onerror="this.onerror=null; this.src='https://placehold.co/300x300/1e293b/ffffff?text=THXY';"
+                    />
+                </div>
+            </div>
 
-        <div class="links-container">
-            <a href="https://open.spotify.com/intl-es/album/4HzouNDmyBpkyNriR3LHXR" class="link-card" target="_blank">Spotify</a>
-            <a href="https://music.apple.com/mx/song/días-pensandote/6816640102" class="link-card" target="_blank">Apple Music</a>
-            <a href="https://youtu.be/oTG8q_yUR8w" class="link-card" target="_blank">YouTube</a>
-            <a href="https://www.instagram.com/thxy.official/?hl=es" class="link-card" target="_blank">Instagram</a>
-            <a href="https://www.tiktok.com/@thxy.rar" class="link-card" target="_blank">TikTok</a>
+            <!-- Artist Identity -->
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-widest uppercase mb-1 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                THXY
+            </h1>
+            <p class="text-xs sm:text-sm text-gray-400 tracking-wider uppercase font-medium mb-6">
+                Artist & Music Producer
+            </p>
+
+            <!-- Links Stack -->
+            <div class="w-full space-y-3.5">
+                
+                <!-- Spotify -->
+                <a href="https://open.spotify.com/intl-es/album/4HzouNDmyBpkyNriR3LHXR" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="glass-button w-full py-3.5 px-5 rounded-2xl flex items-center justify-between group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-brands fa-spotify text-xl text-[#1DB954] group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-semibold tracking-wide">Spotify</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-gray-400 group-hover:text-white transition-colors"></i>
+                </a>
+
+                <!-- Apple Music -->
+                <a href="https://music.apple.com/mx/song/d%C3%ADas-pensandote/6816640102" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="glass-button w-full py-3.5 px-5 rounded-2xl flex items-center justify-between group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-brands fa-apple text-xl text-white group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-semibold tracking-wide">Apple Music</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-gray-400 group-hover:text-white transition-colors"></i>
+                </a>
+
+                <!-- YouTube -->
+                <a href="https://youtu.be/oTG8q_yUR8w" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="glass-button w-full py-3.5 px-5 rounded-2xl flex items-center justify-between group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-brands fa-youtube text-xl text-[#FF0000] group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-semibold tracking-wide">YouTube</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-gray-400 group-hover:text-white transition-colors"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/thxy.official/?hl=es" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="glass-button w-full py-3.5 px-5 rounded-2xl flex items-center justify-between group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-brands fa-instagram text-xl text-[#E4405F] group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-semibold tracking-wide">Instagram</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-gray-400 group-hover:text-white transition-colors"></i>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@thxy.rar" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="glass-button w-full py-3.5 px-5 rounded-2xl flex items-center justify-between group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-brands fa-tiktok text-xl text-white group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-semibold tracking-wide">TikTok</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs text-gray-400 group-hover:text-white transition-colors"></i>
+                </a>
+
+            </div>
+
+            <!-- Share & Copy Link Action -->
+            <div class="mt-6 pt-5 border-t border-white/10 w-full flex justify-center space-x-4">
+                <button onclick="copyToClipboard()" class="text-xs text-gray-400 hover:text-white flex items-center space-x-1.5 transition-colors bg-white/5 py-2 px-4 rounded-full border border-white/5 hover:border-white/20">
+                    <i class="fa-regular fa-copy"></i>
+                    <span id="copy-text">Copiar enlace</span>
+                </button>
+            </div>
+
         </div>
+
+        <!-- Footer Notice -->
+        <p class="text-center text-xs text-gray-500 mt-6 font-medium tracking-wider uppercase">
+            &copy; <span id="year"></span> THXY. ALL RIGHTS RESERVED.
+        </p>
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center space-x-2">
+        <i class="fa-solid fa-check text-green-400"></i>
+        <span>¡Enlace copiado al portapapeles!</span>
     </div>
 
+    <!-- Interactive Scripts -->
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Copy Link to Clipboard
+        function copyToClipboard() {
+            const url = window.location.href;
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = url;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            // Toast animation
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-2');
+            }, 2500);
+        }
+
+        // Ambient Floating Particles Canvas
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(Math.floor(window.innerWidth / 20), 40);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
 </body>
 </html>
